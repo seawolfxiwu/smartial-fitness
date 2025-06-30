@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My JSON Collector</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; max-width: 600px; margin: auto; }
+    input, textarea { width: 100%; padding: 0.5rem; margin: 0.5rem 0; }
+    button { padding: 0.5rem 1rem; }
+    li { margin: 0.5rem 0; }
+  </style>
+</head>
+<body>
+  <h1>Submit Your Idea</h1>
+
+  <!-- Replace with your actual email -->
+  <form action="https://formsubmit.co/YOUR_EMAIL@example.com" method="POST">
+    <input type="text" name="name" placeholder="Your name" required />
+    <textarea name="idea" placeholder="Your idea" required></textarea>
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_subject" value="New Submission">
+    <button type="submit">Send</button>
+  </form>
+
+  <hr>
+
+  <h2>Processed Ideas</h2>
+  <ul id="ideas-list"></ul>
+
+  <script>
+    fetch('data.json')
+      .then(res => res.json())
+      .then(data => {
+        const ul = document.getElementById('ideas-list');
+        data.forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = `${item.name}: ${item.idea}`;
+          ul.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>
